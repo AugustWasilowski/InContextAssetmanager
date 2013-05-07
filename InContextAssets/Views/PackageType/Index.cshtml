@@ -1,0 +1,32 @@
+﻿@model IEnumerable<InContextAssets.Models.PackageType>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Package Types</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            @Html.ActionLink("Type", "Index", new {sortOrder=ViewBag.PackageTypeSortParm })
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PackageTypeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PackageTypeID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+    </tr>
+}
+
+</table>

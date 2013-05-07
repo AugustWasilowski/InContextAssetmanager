@@ -1,0 +1,39 @@
+﻿@model IEnumerable<InContextAssets.Models.Tag>
+
+@{
+    ViewBag.Title = "Tags";
+}
+
+<h2>Tags</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            @Html.ActionLink("Key", "Index", new {sortOrder=ViewBag.KeySortParm})
+        </th>
+        <th>
+            @Html.ActionLink("Value", "Index", new {sortOrder=ViewBag.ValueSortParm})
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TagID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TagID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Value)
+        </td>
+        
+    </tr>
+}
+
+</table>

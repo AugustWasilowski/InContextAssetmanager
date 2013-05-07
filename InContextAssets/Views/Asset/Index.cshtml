@@ -1,0 +1,94 @@
+﻿@model PagedList.IPagedList<InContextAssets.Models.Asset>
+
+@{
+    ViewBag.Title = "Assets";
+}
+
+<h2>Assets</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm())
+{
+    <p>
+        Filter: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Filter" />
+    </p>
+}
+<table>
+    <tr>
+        <th></th>
+        <th>
+            @Html.ActionLink("Name", "Index", new { sortOrder=ViewBag.NameSortParm, currentFilter=ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Manufacturer", "Index", new { sortOrder = ViewBag.ManufacturerSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            @Html.ActionLink("Package Type", "Index", new { sortOrder = ViewBag.PackageTypeSortParm, currentFilter = ViewBag.CurrentFilter })
+        </th>
+        <th>
+            Tags         
+        </th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.AssetID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.AssetID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.AssetID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Manufacturer.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PackageType.Type )
+        </td>
+        <td>
+            @{
+                foreach (var tag in item.Tags)
+                {
+                    @tag.Key @: :  @tag.Value&nbsp;|&nbsp;
+                    }
+                }
+        </td>        
+    </tr>
+}
+
+</table>
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    of @Model.PageCount
+     
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "Index", new { page = 1, sortOrder = ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter  })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Prev", "Index", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter  })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Prev
+    }
+     
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Next >", "Index", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter  })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "Index", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort, currentFilter=ViewBag.CurrentFilter  })
+    }
+    else
+    {
+        @:Next >
+        @Html.Raw(" ")
+        @:>>
+    }
+</div>

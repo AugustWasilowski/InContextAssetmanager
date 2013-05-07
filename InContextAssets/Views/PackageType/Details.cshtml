@@ -1,0 +1,20 @@
+﻿@model InContextAssets.Models.PackageType
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Package Type Details</h2>
+
+<fieldset>
+    <legend>Package Type</legend>
+
+    <div class="display-label">Type</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.PackageTypeID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,32 @@
+﻿@model IEnumerable<InContextAssets.Models.Manufacturer>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manufacturers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            @Html.ActionLink("Name", "Index", new {sortOrder=ViewBag.NameSortParm})
+        </th>        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>        
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ManufacturerID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ManufacturerID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+    </tr>
+}
+
+</table>

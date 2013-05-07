@@ -1,0 +1,74 @@
+﻿@model InContextAssets.Models.Asset
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Asset Details</h2>
+
+<fieldset>
+    <legend>Asset</legend>
+    
+    <div class="display-label"><h3>Name</h3></div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>    
+    <div class="display-label">
+        <h3>@Html.LabelFor(model => Model.Manufacturer)</h3>
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Manufacturer.Name)
+    </div>    
+    <div class="display-label">Height</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Height)
+    </div>
+
+    <div class="display-label">Width</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Width)
+    </div>
+    <div class="display-label">Depth</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Depth)
+    </div>
+
+    <div class="display-label">Radius</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Radius)
+    </div>
+
+    <div class="display-label">
+        @Html.LabelFor(model => Model.PackageType)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.PackageType.Type)
+    </div>
+    <div class="display-label">
+        <h3>@Html.LabelFor(model => Model.Tags)</h3>
+    </div>
+    <div class="display-field">
+        <table>
+            <tr>
+                <th>Key</th>
+                <th>Value</th>
+            </tr>
+            @foreach (var item in Model.Tags)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AssetID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

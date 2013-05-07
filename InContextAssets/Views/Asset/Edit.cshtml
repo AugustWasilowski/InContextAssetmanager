@@ -1,0 +1,112 @@
+﻿@model InContextAssets.Models.Asset
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Asset</h2>
+<p class="error">@ViewBag.ErrorMessage</p>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Asset</legend>
+
+        @Html.HiddenFor(model => model.AssetID)
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ManufacturerID, "Manufacturer")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ManufacturerID", String.Empty)
+            @Html.ValidationMessageFor(Model => Model.ManufacturerID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Height)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Height)
+            @Html.ValidationMessageFor(model => model.Height)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Width)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Width)
+            @Html.ValidationMessageFor(model => model.Width)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Depth)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Depth)
+            @Html.ValidationMessageFor(model => model.Depth)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Radius)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Radius)
+            @Html.ValidationMessageFor(model => model.Radius)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PackageTypeID, "Package")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("PackageTypeID", String.Empty)
+            @Html.ValidationMessageFor(Model => Model.PackageTypeID)
+        </div>
+
+        <div class="editor-field">
+            <table>
+                <tr>
+                    @{
+                        int count = 0;
+                        List<InContextAssets.ViewModels.AssetTagData> tags = ViewBag.Tags;
+                        if (tags != null)
+                        {
+                            foreach (var tag in tags)
+                        {
+                            if (count++ % 3 == 0)
+                            {
+                                @: </tr> <tr>
+                            }
+                            @: <td>
+                                <input type="checkbox"
+                                        name="selectedTags"
+                                        value="@tag.TagID"
+                                        @Html.Raw(tag.Assigned ? "checked=\"checked\"" : "")) />  
+                                @tag.Key @: : @tag.Value                      
+                            @:</td>
+                            }
+                        }
+                        
+                    @:</tr>
+                    }
+            </table>
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
